@@ -1,0 +1,38 @@
+name: Async API Fetcher – CI (uv)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      # 3. Setup Python using uv (project uses .python-version or pyproject)
+      - name: Install Python
+        run: uv python install
+
+      # 4. Sync project dependencies
+      - name: Install dependencies
+        run: uv sync --all-extras
+
+      # 5. Optional: lint using ruff
+      - name: Lint with Ruff
+        run: |
+          uv tool install ruff
+          ruff check .
+
+      # 6. Run the async fetcher
+      - name: Run Async API Fetcher
+        run: |
+          uv run python main.py || true
