@@ -123,12 +123,6 @@ More sample URLs are included in `main.py`.
 
 ---
 
-## 📝 License
-
-MIT License — feel free to modify and use.
-
----
-
 ## 🤝 Contributing
 
 PRs welcome! Add new features like:
